@@ -45,6 +45,9 @@ def scrape_contracts(url, add_url, output_file):
     with open("links.txt", "r") as f:
         links = f.read().splitlines()
         for link in links:
+            count = 0
+            start = 0
+            page = 1
             URL = link + add_url
             print("Scraping url " + URL)
             while True:
