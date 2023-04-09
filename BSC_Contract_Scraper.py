@@ -40,7 +40,10 @@ def get_links(url, keywords):
 def scrape_contracts(url, add_url, output_file):
     #strip "labelcloud" from the url
     url = url.split("/labelcloud")[0]
-    driver.get(f"{url}/login") # Navigate to the login page
+    driver.get(f"{url}/login")
+    while "Ray ID:" in driver.page_source:
+        # Wait for 7 seconds to allow Cloudflare to verify the request
+        time.sleep(0.3) # Navigate to the login page
     time.sleep(20) # Wait for the page to load and for user to complete captcha
     with open("links.txt", "r") as f:
         links = f.read().splitlines()
@@ -49,9 +52,9 @@ def scrape_contracts(url, add_url, output_file):
             start = 0
             page = 1
             URL = link + add_url
-            print("Scraping url " + URL)
             while True:
                 driver.get(URL) # Navigate to the page
+                print("Scraping url " + URL)
                 while "Ray ID:" in driver.page_source:
                     # Wait for 7 seconds to allow Cloudflare to verify the request
                     time.sleep(0.3)
