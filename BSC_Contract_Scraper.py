@@ -28,17 +28,18 @@ def get_links(url, keywords):
         time.sleep(0.3)
     time.sleep(1.3) # Wait for the page to load
     soup = BeautifulSoup(driver.page_source, 'html.parser')
-    response = soup.find_all('a')
+    div = soup.find('div', {'class': 'row mb-3'})
     links = []
-    for a in response:
+    for a in div.find_all('a'):
         for keyword in keywords:
             if keyword in a['href']:
                 links.append(a['href'])
-    with open("links.txt", "w") as f:
+    with open("links.txt", "a") as f:
         for link in links:
             url = url.split("/labelcloud")[0]
             link2 = url + link
             f.write(link2 + "\n")
+
 
 def scrape_contracts(url, add_url, output_file):
     #strip "labelcloud" from the url
