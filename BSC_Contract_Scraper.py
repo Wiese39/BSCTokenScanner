@@ -36,9 +36,9 @@ def get_links(url, keywords):
                 links.append(a['href'])
     with open("links.txt", "w") as f:
         for link in links:
-            #link + current url - labelcloud
-            
-            f.write(link + "\n")
+            url = url.split("/labelcloud")[0]
+            link2 = url + link
+            f.write(link2 + "\n")
 
 def scrape_contracts(url, add_url, output_file):
     #strip "labelcloud" from the url
