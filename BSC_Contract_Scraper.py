@@ -86,7 +86,7 @@ def scrape_contracts(url, add_url, output_file):
                                 f.write(address + "\n")
                                 count += 1
                 #if this page is loaded https://bscscan.com/error then break
-                if "error" in driver.current_url:
+                if "error" or "404" in driver.current_url:
                     print("Scraped " + str(count) + " addresses on " + str(page) + " pages.")
                     if page > 1:
                         page -= 1
